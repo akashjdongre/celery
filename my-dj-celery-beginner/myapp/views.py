@@ -14,7 +14,7 @@ def index(request):
     result = multiply_task.delay(15,15)
     print(f"Multiplication Task ID : {result}")
 
-    return render(request, "myapp/home.html" , {'result' : result})
+    return render(request, "myapp/home.html" , {'x`result' : result})
 
 def check_result(request, task_id):
     result = AsyncResult(task_id)
