@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapp',
     'django_celery_results',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -137,11 +138,23 @@ CELERY_BROKER_URL = "redis://localhost:6379/0"
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_RESULT_EXTENDED = True
 
+# CELERY_BEAT_SCHEDULE = {
+#     'every-10-seconds': {
+#         'task': 'myapp.tasks.clear_session_cache',
+#         'schedule': 10.0,
+#         'args': ("Hello",)
+#     },
+
+# }
+
+## ----- Using Time Delta for scheduling tasks ---- ##
+from datetime import timedelta
+
 CELERY_BEAT_SCHEDULE = {
     'every-10-seconds': {
         'task': 'myapp.tasks.clear_session_cache',
-        'schedule': 10.0,
-        'args': ("Hello")
+        'schedule': timedelta(seconds=15),
+        'args': ("Hello",)
     },
 
 }
